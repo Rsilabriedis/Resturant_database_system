@@ -1,89 +1,161 @@
+/* 1. Box-sizing */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-/* 1. Use a more-intuitive box-sizing model */
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
-  
-  /* 2. Remove default margin */
-  *:not(dialog) {
-    margin: 0;
-  }
-  
-  /* 3. Enable keyword animations */
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      interpolate-size: allow-keywords;
-    }
-  }
-  
-  body {
-    /* 4. Add accessible line-height */
-    line-height: 1.5;
-    /* 5. Improve text rendering */
-    -webkit-font-smoothing: antialiased;
-  }
-  
-  /* 6. Improve media defaults */
-  img, picture, video, canvas, svg {
-    display: block;
-    max-width: 100%;
-  }
-  
-  /* 7. Inherit fonts for form controls */
-  input, button, textarea, select {
-    font: inherit;
-  }
-  
-  /* 8. Avoid text overflows */
-  p, h1, h2, h3, h4, h5, h6 {
-    overflow-wrap: break-word;
-  }
-  
-  /* 9. Improve line wrapping */
-  p {
-    text-wrap: pretty;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    text-wrap: balance;
-  }
-  
-  /*
-    10. Create a root stacking context
-  */
-  #root, #__next {
-    isolation: isolate;
-}   
+/* 2. Remove default margin */
+*:not(dialog) {
+  margin: 0;
+}
 
-:root{
-    --lightgray: #ECEEE8;
-    --Peach:#F9B990;
-    --Terracota:#E8734A;
-    --Burntsienna:#B85C38;
-    --Darkbrown:#3D2B23;
-    --Sagegreen:#7FAD6F;
-    --deepred:#C0392B;
+/* 3. Enable keyword animations */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
 }
-ul{
-  list-style-type: none;
+
+/* 4-5. Body base */
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  background-image: url('../better_ito.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
-a {
-  color: inherit; 
-  text-decoration: inherit;
+
+/* 6. Media defaults */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
 }
-.navbar{
+
+/* 7. Form controls inherit font */
+input, button, textarea, select {
+  font: inherit;
+}
+
+/* 8. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+}
+
+/* 9. Line wrapping */
+p { text-wrap: pretty; }
+h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+
+/* 10. Root stacking context */
+#root, #__next {
+  isolation: isolate;
+}
+
+/* Variables */
+:root {
+  --lightgray: #ECEEE8;
+  --Peach: #F9B990;
+  --Terracota: #E8734A;
+  --Burntsienna: #B85C38;
+  --Darkbrown: #3D2B23;
+  --Sagegreen: #7FAD6F;
+  --deepred: #C0392B;
+}
+
+/* Nav */
+nav {
   width: 100%;
-  height: 10vh;
+  height: 8vh;
   background-color: var(--Darkbrown);
   display: flex;
-  justify-content: space-around;
-  justify-items: center;
   align-items: center;
-  border-radius: 5px;
+  justify-content: space-between;
+  padding: 0 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+nav ul {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.logo {
+  color: var(--lightgray);
+  font-size: 2.5rem;
+}
+
+nav ul li {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button {
   color: var(--lightgray);
   text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  position: static; 
+  transition: color 0.5s;
 }
-.nav-links{
-  display:flex;
-  justify-content: space-evenly;
-  width: 20vw;
+
+.nav-button::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 0%;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--Terracota);
+  transition: width 0.5s ease;
+}
+
+.nav-button:hover {
+  color: var(--Terracota);
+}
+
+.nav-button:hover::before {
+  width: calc(100% - 20px); 
+}
+
+.Reservation {
+  color: var(--lightgray);
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  position: relative;
+  overflow: hidden;
+  transition: color 0.5s;
+  right: 2rem;
+  z-index: 1;
+  font-weight: bold;
+}
+
+.Reservation::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 0%;
+  top: 0;
+  left: -40px;
+  transform: skewX(45deg);
+  background-color: var(--Terracota);
+  z-index: -1;
+  transition: all 1s;
+}
+
+.Reservation:hover {
+  color: white;
+}
+
+.Reservation:hover::before {
+  width: 150%;
+}
+@view-transition {
+  navigation: auto;
 }
