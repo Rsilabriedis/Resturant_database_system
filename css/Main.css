@@ -1,70 +1,38 @@
-/* 1. Box-sizing */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-/* 2. Remove default margin */
-*:not(dialog) {
-  margin: 0;
-}
-
-/* 3. Enable keyword animations */
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+*:not(dialog) { margin: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  html {
-    interpolate-size: allow-keywords;
-  }
+  html { interpolate-size: allow-keywords; }
 }
-
-/* 4-5. Body base */
 body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background-image: url('../better_ito.jpg');
+  background-image: url('images/better_ito.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  font-family: 'Georgia', serif;
 }
-
-/* 6. Media defaults */
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-}
-
-/* 7. Form controls inherit font */
-input, button, textarea, select {
-  font: inherit;
-}
-
-/* 8. Avoid text overflows */
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
-
-/* 9. Line wrapping */
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; }
+p, h1,h2,h3,h4,h5,h6 { overflow-wrap: break-word; }
 p { text-wrap: pretty; }
-h1, h2, h3, h4, h5, h6 { text-wrap: balance; }
+h1,h2,h3,h4,h5,h6 { text-wrap: balance; }
+#root, #__next { isolation: isolate; }
 
-/* 10. Root stacking context */
-#root, #__next {
-  isolation: isolate;
-}
-
-/* Variables */
+/* ── Variables ── */
 :root {
-  --lightgray: #ECEEE8;
-  --Peach: #F9B990;
-  --Terracota: #E8734A;
+  --lightgray:   #ECEEE8;
+  --Peach:       #F9B990;
+  --Terracota:   #E8734A;
   --Burntsienna: #B85C38;
-  --Darkbrown: #3D2B23;
-  --Sagegreen: #7FAD6F;
-  --deepred: #C0392B;
+  --Darkbrown:   #3D2B23;
+  --Sagegreen:   #7FAD6F;
+  --deepred:     #C0392B;
 }
 
-/* Nav */
+/* ── Nav ── */
 nav {
   width: 100%;
   height: 8vh;
@@ -73,13 +41,13 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 2rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
 }
-
 nav ul {
   display: flex;
   gap: 2rem;
   list-style: none;
+  align-items: center;
 }
 
 .logo {
@@ -88,21 +56,26 @@ nav ul {
 }
 
 nav ul li {
-  position: relative; 
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
+.line {
+  display: block;
+  width: 1px;
+  height: 20px;
+}
 .nav-button {
   color: var(--lightgray);
   text-decoration: none;
   font-size: 1.2rem;
   padding: 10px 20px;
-  position: static; 
+  position: relative;
   transition: color 0.5s;
+  border-left: 0.5px  solid rgba(236, 238, 232, 0.3);
+  border-right: 0.5px solid rgba(236, 238, 232, 0.3);
 }
-
 .nav-button::before {
   content: "";
   position: absolute;
@@ -114,14 +87,8 @@ nav ul li {
   background-color: var(--Terracota);
   transition: width 0.5s ease;
 }
-
-.nav-button:hover {
-  color: var(--Terracota);
-}
-
-.nav-button:hover::before {
-  width: calc(100% - 20px); 
-}
+.nav-button:hover { color: var(--Terracota); }
+.nav-button:hover::before { width: calc(100% - 20px); }
 
 .Reservation {
   color: var(--lightgray);
@@ -135,7 +102,6 @@ nav ul li {
   z-index: 1;
   font-weight: bold;
 }
-
 .Reservation::before {
   content: "";
   position: absolute;
@@ -148,14 +114,124 @@ nav ul li {
   z-index: -1;
   transition: all 1s;
 }
+.Reservation:hover { color: white; }
+.Reservation:hover::before { width: 150%; }
 
-.Reservation:hover {
-  color: white;
+@view-transition { navigation: auto; }
+
+/* ── Cards row ── */
+.food-con {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 4rem 2rem;
+  width: 100%;
 }
 
-.Reservation:hover::before {
-  width: 150%;
+/* ── Card ── */
+.container {
+  width: 300px;
+  height: 200px;
 }
-@view-transition {
-  navigation: auto;
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  cursor: pointer;
+}
+
+/* ── Slide 1 (icon / front face) ── */
+.card .slide {
+  width: 100%;
+  height: 100%;
+  transition: 0.7s cubic-bezier(.77,0,.18,1);
+}
+
+.card .slide.slide1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transform: translateY(0);
+  background: linear-gradient(135deg, var(--Burntsienna), var(--Darkbrown));
+}
+.card:hover .slide.slide1 {
+  transform: translateY(-100%);
+}
+
+.card .slide.slide1 .icon {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(135deg, var(--Terracota), var(--Burntsienna));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.card .slide.slide1 .icon .fa {
+  font-size: 80px;
+  color: var(--lightgray);
+  opacity: 0.9;
+}
+
+/* ── Slide 2 (info / back face) ── */
+.card .slide.slide2 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--Darkbrown), #2a1810);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+  transform: translateY(0);     /* sits below slide1 due to stacking */
+  margin-top: -200px;           /* pulls it directly behind slide1 */
+  transition: 0.8s cubic-bezier(.77,0,.18,1);
+}
+.card:hover .slide.slide2 {
+  transform: translateY(0);
+}
+
+/* Accent line */
+.card .slide.slide2::after {
+  content: "";
+  position: absolute;
+  width: 40px;
+  height: 3px;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--Terracota);
+  border-radius: 2px;
+}
+
+.card .slide.slide2 .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+.card .slide.slide2 .content h3 {
+  margin: 0 0 8px 0;
+  padding: 0;
+  font-size: 1.3rem;
+  color: var(--Peach);
+  letter-spacing: 0.04em;
+}
+.card .slide.slide2 .content p {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: var(--lightgray);
+  opacity: 0.85;
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
