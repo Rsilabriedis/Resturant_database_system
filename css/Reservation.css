@@ -235,3 +235,31 @@ nav ul li {
   font-size: 0.92rem;
   line-height: 1.6;
 }
+.table_container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+img {
+  --s: 250px;   /* the size of the image */
+  --b: 8px;     /* the border thickness*/
+  --g: 14px;    /* the gap */
+  --c: #4ECDC4; /* the color */
+  
+  width: var(--s);
+  aspect-ratio: 1;
+  outline: calc(var(--s)/2) solid #0009;
+  outline-offset: calc(var(--s)/-2);
+  cursor: pointer;
+  transition: .3s;
+}
+img:hover {
+  outline: var(--b) solid var(--c);
+  outline-offset: var(--g);
+}
+
+img {
+  border-radius: 50%;
+}
