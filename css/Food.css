@@ -8,7 +8,7 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
-  background-image: url('images/food_ito.jpg');
+  background-image: url('../images/food_ito.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
